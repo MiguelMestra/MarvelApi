@@ -10,7 +10,7 @@ import java.lang.reflect.Array;
 @NoArgsConstructor
 public class Comic {
     int id;
-    String title;
+    String name;
     String description;
     String isbn;
     int pageCount;
