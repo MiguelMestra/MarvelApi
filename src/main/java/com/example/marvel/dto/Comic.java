@@ -8,12 +8,11 @@ import java.lang.reflect.Array;
 
 @Data
 @NoArgsConstructor
-public class Comic {
+public class Comic extends SummaryMarvelEntity{
     int id;
-    String name;
     String description;
     String isbn;
     int pageCount;
     Image thumbnail;
-    Resources<Character> characters;
+    Resources<SummaryMarvelEntity> characters;
 }

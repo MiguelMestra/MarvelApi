@@ -1,10 +1,15 @@
 package com.example.marvel.dto;
 
-@lombok.Data
-public class PaginatedResponse {
+import lombok.Data;
+
+import java.util.List;
+
+@Data
+public class CharacterDataResponse {
     private int offset;
     private int limit;
     private int count;
     private int total;
-    private DataResponse data;
+    private List<Character> results;
+
 }

@@ -7,11 +7,10 @@ import java.awt.*;
 
 @Data
 @NoArgsConstructor
-public class Character {
+public class Character extends SummaryMarvelEntity{
     int id;
-    String name;
     String description;
     Image thumbnail;
-    Resources<Comic> comics;
+    Resources<SummaryMarvelEntity> comics;
 
 }
