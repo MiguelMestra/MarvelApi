@@ -31,7 +31,7 @@ public class MarvelApiConexionService {
     public PaginatedCharacterResponse getAllCharacters(ArrayList<NameValuePair> aditionalParameters) throws URISyntaxException {
 
         URI uri = getUri(ALL_CHARACTER_PATH, aditionalParameters);
-        return restTemplate.getForEntity(uri, PaginatedCharacterResponse.class).getBody();
+        return restTemplate.getForObject(uri, PaginatedCharacterResponse.class);
     }
 
     private URI getUri(String path, ArrayList<NameValuePair> aditionalParameters) throws URISyntaxException {

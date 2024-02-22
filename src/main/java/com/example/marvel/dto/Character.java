@@ -12,5 +12,7 @@ public class Character extends SummaryMarvelEntity{
     String description;
     Image thumbnail;
     Resources<SummaryMarvelEntity> comics;
+    Resources<SummaryMarvelEntity> series;
+    Resources<SummaryMarvelEntity> stories;
 
 }

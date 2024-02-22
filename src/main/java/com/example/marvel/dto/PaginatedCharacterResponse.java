@@ -9,4 +9,8 @@ public class PaginatedCharacterResponse {
     int code;
     String status;
     private CharacterDataResponse data;
+
+    public CharacterDataResponse getData() {
+        return data;
+    }
 }

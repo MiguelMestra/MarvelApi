@@ -1,5 +1,6 @@
 package com.example.marvel.service;
 
+import com.example.marvel.dto.Character;
 import com.example.marvel.dto.PaginatedCharacterResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -26,20 +28,23 @@ public class MarvelService {
         this.marvelApiConexionService = marvelApiConexionService;
     }
 
-    public PaginatedCharacterResponse getAllCharacters(String name, String series, String stories) throws URISyntaxException {
+    public List<Character> getAllCharacters(String name, List<Integer> series, List<Integer> stories) throws URISyntaxException {
         ArrayList<NameValuePair> filterParameters = new ArrayList<>();
+
         if (Objects.nonNull(name)) {
             filterParameters.add(new BasicNameValuePair("name", name));
         }
         if (Objects.nonNull(series)) {
-            filterParameters.add(new BasicNameValuePair("series", series));
+            String seriesParameter=series.toString().substring(1,series.toString().length()-1);
+            filterParameters.add(new BasicNameValuePair("series", seriesParameter));
         }
         if (Objects.nonNull(stories)) {
-            filterParameters.add(new BasicNameValuePair("stories", stories));
+            String storiesParameter=stories.toString().substring(1,stories.toString().length()-1);
+            filterParameters.add(new BasicNameValuePair("stories", storiesParameter));
         }
 
-
-        return marvelApiConexionService.getAllCharacters(filterParameters);
+        PaginatedCharacterResponse responseCharacter = marvelApiConexionService.getAllCharacters(filterParameters);
+        return responseCharacter.getData().getResults();
     }
 
 }

@@ -1,11 +1,14 @@
 package com.example.marvel.controller;
 
+import com.example.marvel.dto.Character;
+import com.example.marvel.dto.CharacterDataResponse;
 import com.example.marvel.dto.PaginatedCharacterResponse;
 import com.example.marvel.service.MarvelService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URISyntaxException;
+import java.util.List;
 
 @RestController
 public class CharacterController {
@@ -15,11 +18,11 @@ public class CharacterController {
         this.marvelService = marvelService;
     }
 
-    @GetMapping("/character")
+    @GetMapping("/characters")
     @ResponseStatus(HttpStatus.OK)
-    public PaginatedCharacterResponse getCharacters(@RequestParam(required = false) String name,
-                                                    @RequestParam (required = false) String series,
-                                                    @RequestParam (required = false) String stories) throws URISyntaxException {
+    public List<Character> getCharacters(@RequestParam(required = false) String name,
+                                         @RequestParam (required = false) List<Integer> series,
+                                         @RequestParam (required = false) List<Integer> stories) throws URISyntaxException {
         return marvelService.getAllCharacters(name,series,stories);
     }
 }
