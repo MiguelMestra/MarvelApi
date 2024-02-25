@@ -36,11 +36,11 @@ public class MarvelService {
             filterParameters.add(new BasicNameValuePair("name", name));
         }
         if (Objects.nonNull(series)) {
-            String seriesParameter=series.toString().substring(1,series.toString().length()-1);
+            String seriesParameter = series.toString().substring(1, series.toString().length() - 1);
             filterParameters.add(new BasicNameValuePair("series", seriesParameter));
         }
         if (Objects.nonNull(stories)) {
-            String storiesParameter=stories.toString().substring(1,stories.toString().length()-1);
+            String storiesParameter = stories.toString().substring(1, stories.toString().length() - 1);
             filterParameters.add(new BasicNameValuePair("stories", storiesParameter));
         }
 
@@ -52,7 +52,7 @@ public class MarvelService {
         ArrayList<NameValuePair> filterParameters = new ArrayList<>();
 
         if (Objects.nonNull(characters)) {
-            String storiesParameter=characters.toString().substring(1,characters.toString().length()-1);
+            String storiesParameter = characters.toString().substring(1, characters.toString().length() - 1);
             filterParameters.add(new BasicNameValuePair("characters", storiesParameter));
         }
 

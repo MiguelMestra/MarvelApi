@@ -1,18 +1,15 @@
 package com.example.marvel.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@Getter
+@AllArgsConstructor
 public class PaginatedResponse<T> {
     int code;
     String status;
     private DataResponse<T> data;
 
-    public DataResponse<T> getData() {
-        return data;
-    }
 }

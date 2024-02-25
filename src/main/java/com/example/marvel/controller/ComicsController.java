@@ -1,6 +1,5 @@
 package com.example.marvel.controller;
 
-import com.example.marvel.dto.Character;
 import com.example.marvel.dto.Comic;
 import com.example.marvel.service.MarvelService;
 import org.springframework.http.HttpStatus;
@@ -22,7 +21,7 @@ public class ComicsController {
 
     @GetMapping("/comics")
     @ResponseStatus(HttpStatus.OK)
-    public List<Comic> getComics(@RequestParam (required = false) List<Integer> characters) throws URISyntaxException {
+    public List<Comic> getComics(@RequestParam(required = false) List<Integer> characters) throws URISyntaxException {
         return marvelService.getAllComics(characters);
     }
 }

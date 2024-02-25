@@ -1,5 +1,6 @@
 package com.example.marvel.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -7,6 +8,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class DataResponse<T> {
     private int offset;
     private int limit;
@@ -14,7 +16,4 @@ public class DataResponse<T> {
     private int total;
     private List<T> results;
 
-    public List<T> getResults() {
-        return results;
-    }
 }

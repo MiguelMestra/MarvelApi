@@ -46,6 +46,7 @@ public class MarvelApiConexionService {
         }).getBody();
 
     }
+
     private URI getUri(String path, ArrayList<NameValuePair> aditionalParameters) throws URISyntaxException {
         String timestamp = String.valueOf(System.currentTimeMillis());
         String hash = HashUtil.getMD5(timestamp + privateKey + publicKey);
