@@ -52,11 +52,21 @@ public class MarvelService {
         ArrayList<NameValuePair> filterParameters = new ArrayList<>();
 
         if (Objects.nonNull(characters)) {
-            String storiesParameter = characters.toString().substring(1, characters.toString().length() - 1);
-            filterParameters.add(new BasicNameValuePair("characters", storiesParameter));
+            String characterParameter = characters.toString().substring(1, characters.toString().length() - 1);
+            filterParameters.add(new BasicNameValuePair("characters", characterParameter));
         }
 
-        PaginatedResponse<Comic> responseCharacter = marvelApiConexionService.getAllComics(filterParameters);
-        return responseCharacter.getData().getResults();
+        PaginatedResponse<Comic> responseComics = marvelApiConexionService.getAllComics(filterParameters);
+        return responseComics.getData().getResults();
+    }
+
+    public Comic getComicById(int id) throws URISyntaxException {
+
+        PaginatedResponse<Comic> responseComic = marvelApiConexionService.getComicById(id);
+        List<Comic> response = responseComic.getData().getResults();
+        if (response.isEmpty()) {
+            return null;
+        }
+        return response.get(0);
     }
 }

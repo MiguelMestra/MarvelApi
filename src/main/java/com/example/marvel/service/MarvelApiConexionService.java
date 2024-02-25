@@ -11,6 +11,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.yaml.snakeyaml.events.Event;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -47,6 +48,13 @@ public class MarvelApiConexionService {
 
     }
 
+    public PaginatedResponse<Comic> getComicById(int id) throws URISyntaxException {
+        String comicByIdPath = ALL_COMICS_PATH+"/"+ id;
+        URI uri = getUri(comicByIdPath, new ArrayList<>());
+        return restTemplate.exchange(uri, HttpMethod.GET, null, new ParameterizedTypeReference<PaginatedResponse<Comic>>() {
+        }).getBody();
+    }
+
     private URI getUri(String path, ArrayList<NameValuePair> aditionalParameters) throws URISyntaxException {
         String timestamp = String.valueOf(System.currentTimeMillis());
         String hash = HashUtil.getMD5(timestamp + privateKey + publicKey);
@@ -57,6 +65,5 @@ public class MarvelApiConexionService {
                 .addParameters(aditionalParameters)
                 .build();
     }
-
 
 }
