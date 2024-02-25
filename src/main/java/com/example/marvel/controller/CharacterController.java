@@ -1,8 +1,6 @@
 package com.example.marvel.controller;
 
 import com.example.marvel.dto.Character;
-import com.example.marvel.dto.CharacterDataResponse;
-import com.example.marvel.dto.PaginatedCharacterResponse;
 import com.example.marvel.service.MarvelService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

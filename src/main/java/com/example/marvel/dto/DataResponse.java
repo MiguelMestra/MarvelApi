@@ -7,14 +7,14 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class CharacterDataResponse {
+public class DataResponse<T> {
     private int offset;
     private int limit;
     private int count;
     private int total;
-    private List<Character> results;
+    private List<T> results;
 
-    public List<Character> getResults() {
+    public List<T> getResults() {
         return results;
     }
 }

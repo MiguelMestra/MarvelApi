@@ -1,7 +1,8 @@
 package com.example.marvel.service;
 
 import com.example.marvel.dto.Character;
-import com.example.marvel.dto.PaginatedCharacterResponse;
+import com.example.marvel.dto.Comic;
+import com.example.marvel.dto.PaginatedResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,8 +44,19 @@ public class MarvelService {
             filterParameters.add(new BasicNameValuePair("stories", storiesParameter));
         }
 
-        PaginatedCharacterResponse responseCharacter = marvelApiConexionService.getAllCharacters(filterParameters);
+        PaginatedResponse<Character> responseCharacter = marvelApiConexionService.getAllCharacters(filterParameters);
         return responseCharacter.getData().getResults();
     }
 
+    public List<Comic> getAllComics(List<Integer> characters) throws URISyntaxException {
+        ArrayList<NameValuePair> filterParameters = new ArrayList<>();
+
+        if (Objects.nonNull(characters)) {
+            String storiesParameter=characters.toString().substring(1,characters.toString().length()-1);
+            filterParameters.add(new BasicNameValuePair("characters", storiesParameter));
+        }
+
+        PaginatedResponse<Comic> responseCharacter = marvelApiConexionService.getAllComics(filterParameters);
+        return responseCharacter.getData().getResults();
+    }
 }
