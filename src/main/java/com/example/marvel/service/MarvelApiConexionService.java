@@ -55,6 +55,13 @@ public class MarvelApiConexionService {
         }).getBody();
     }
 
+    public PaginatedResponse<Character> getCharacterById(int id) throws URISyntaxException {
+        String characterByIdPath = ALL_CHARACTER_PATH+"/"+ id;
+        URI uri = getUri(characterByIdPath, new ArrayList<>());
+        return restTemplate.exchange(uri, HttpMethod.GET, null, new ParameterizedTypeReference<PaginatedResponse<Character>>() {
+        }).getBody();
+    }
+
     private URI getUri(String path, ArrayList<NameValuePair> aditionalParameters) throws URISyntaxException {
         String timestamp = String.valueOf(System.currentTimeMillis());
         String hash = HashUtil.getMD5(timestamp + privateKey + publicKey);

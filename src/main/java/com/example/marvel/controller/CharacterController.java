@@ -1,13 +1,13 @@
 package com.example.marvel.controller;
 
 import com.example.marvel.dto.Character;
+import com.example.marvel.dto.CharacterBasicInformationResponseDto;
 import com.example.marvel.service.MarvelService;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 
@@ -26,4 +26,11 @@ public class CharacterController {
                                          @RequestParam(required = false) List<Integer> stories) throws URISyntaxException {
         return marvelService.getAllCharacters(name, series, stories);
     }
+
+    @GetMapping("/characters/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public CharacterBasicInformationResponseDto getSummaryCharacterById(@PathVariable int id) throws URISyntaxException, IOException {
+        return marvelService.getCharacterById(id);
+    }
+
 }

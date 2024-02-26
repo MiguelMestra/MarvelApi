@@ -12,7 +12,7 @@ public class Comic {
     String description;
     String isbn;
     int pageCount;
-    Image thumbnail;
+    ImageInformation thumbnail;
     Resources<SummaryMarvelEntity> characters;
     Resources<SummaryMarvelEntity> series;
     Resources<SummaryMarvelEntity> stories;

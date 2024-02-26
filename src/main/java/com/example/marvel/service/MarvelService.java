@@ -1,13 +1,13 @@
 package com.example.marvel.service;
 
 import com.example.marvel.dto.Character;
-import com.example.marvel.dto.Comic;
-import com.example.marvel.dto.PaginatedResponse;
+import com.example.marvel.dto.*;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +24,11 @@ public class MarvelService {
     private String publicKey;
 
     private MarvelApiConexionService marvelApiConexionService;
+    private GenericApiConexionService genericApiConexionService;
 
-    public MarvelService(MarvelApiConexionService marvelApiConexionService) {
+    public MarvelService(MarvelApiConexionService marvelApiConexionService, GenericApiConexionService genericApiConexionService) {
         this.marvelApiConexionService = marvelApiConexionService;
+        this.genericApiConexionService = genericApiConexionService;
     }
 
     public List<Character> getAllCharacters(String name, List<Integer> series, List<Integer> stories) throws URISyntaxException {
@@ -68,5 +70,20 @@ public class MarvelService {
             return null;
         }
         return response.get(0);
+    }
+
+    public CharacterBasicInformationResponseDto getCharacterById(int id) throws URISyntaxException, IOException {
+        PaginatedResponse<Character> responseCharacter = marvelApiConexionService.getCharacterById(id);
+        List<Character> response = responseCharacter.getData().getResults();
+        if (response.isEmpty()) {
+            return null;
+        }
+        Character character = response.get(0);
+        ImageInformation characterImageInformation = character.getThumbnail();
+        if (Objects.isNull(characterImageInformation)) {
+            return null;
+        }
+        String imageUrl = characterImageInformation.getPath() + "." + characterImageInformation.getExtension();
+        return new CharacterBasicInformationResponseDto(character.getName(), character.getDescription(), imageUrl);
     }
 }
