@@ -3,6 +3,7 @@ package com.example.marvel.service;
 import com.example.marvel.dto.Character;
 import com.example.marvel.dto.Comic;
 import com.example.marvel.dto.PaginatedResponse;
+import com.example.marvel.exceptions.DoesntExistException;
 import com.example.marvel.utils.HashUtil;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URIBuilder;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.yaml.snakeyaml.events.Event;
 
@@ -55,11 +57,15 @@ public class MarvelApiConexionService {
         }).getBody();
     }
 
-    public PaginatedResponse<Character> getCharacterById(int id) throws URISyntaxException {
+    public PaginatedResponse<Character> getCharacterById(int id) throws Exception {
         String characterByIdPath = ALL_CHARACTER_PATH+"/"+ id;
         URI uri = getUri(characterByIdPath, new ArrayList<>());
-        return restTemplate.exchange(uri, HttpMethod.GET, null, new ParameterizedTypeReference<PaginatedResponse<Character>>() {
-        }).getBody();
+        try{
+            return restTemplate.exchange(uri, HttpMethod.GET, null, new ParameterizedTypeReference<PaginatedResponse<Character>>() {
+            }).getBody();
+        }catch (HttpClientErrorException ex){
+            throw new DoesntExistException(ex);
+        }
     }
 
     private URI getUri(String path, ArrayList<NameValuePair> aditionalParameters) throws URISyntaxException {

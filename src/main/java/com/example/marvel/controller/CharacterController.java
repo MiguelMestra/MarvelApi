@@ -2,34 +2,33 @@ package com.example.marvel.controller;
 
 import com.example.marvel.dto.Character;
 import com.example.marvel.dto.CharacterBasicInformationResponseDto;
-import com.example.marvel.service.MarvelService;
+import com.example.marvel.service.MarvelServiceImp;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
+@RequestMapping("/characters")
 public class CharacterController {
-    MarvelService marvelService;
+    MarvelServiceImp marvelService;
 
-    public CharacterController(MarvelService marvelService) {
+    public CharacterController(MarvelServiceImp marvelService) {
         this.marvelService = marvelService;
     }
 
-    @GetMapping("/characters")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Character> getCharacters(@RequestParam(required = false) String name,
-                                         @RequestParam(required = false) List<Integer> series,
-                                         @RequestParam(required = false) List<Integer> stories) throws URISyntaxException {
+    public ResponseEntity<List<Character>> getCharacters(@RequestParam(required = false) String name,
+                                                         @RequestParam(required = false) List<Integer> series,
+                                                         @RequestParam(required = false) List<Integer> stories) throws Exception {
         return marvelService.getAllCharacters(name, series, stories);
     }
 
-    @GetMapping("/characters/{id}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CharacterBasicInformationResponseDto getSummaryCharacterById(@PathVariable int id) throws URISyntaxException, IOException {
+    public ResponseEntity<CharacterBasicInformationResponseDto> getSummaryCharacterById(@PathVariable int id) throws Exception {
         return marvelService.getCharacterById(id);
     }
 
