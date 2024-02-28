@@ -10,6 +10,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -50,11 +51,19 @@ public class MarvelApiConexionService {
 
     }
 
-    public PaginatedResponse<Comic> getComicById(int id) throws URISyntaxException {
-        String comicByIdPath = ALL_COMICS_PATH+"/"+ id;
-        URI uri = getUri(comicByIdPath, new ArrayList<>());
-        return restTemplate.exchange(uri, HttpMethod.GET, null, new ParameterizedTypeReference<PaginatedResponse<Comic>>() {
-        }).getBody();
+    public PaginatedResponse<Comic> getComicById(int id) throws Exception {
+        try {
+            String comicByIdPath = ALL_COMICS_PATH+"/"+ id;
+            URI uri = getUri(comicByIdPath, new ArrayList<>());
+            return restTemplate.exchange(uri, HttpMethod.GET, null, new ParameterizedTypeReference<PaginatedResponse<Comic>>() {
+            }).getBody();
+
+        }catch (HttpClientErrorException ex){
+            if (ex.getStatusCode().equals(HttpStatusCode.valueOf(404))){
+                throw new DoesntExistException(ex);
+            }
+            throw ex;
+        }
     }
 
     public PaginatedResponse<Character> getCharacterById(int id) throws Exception {
@@ -64,7 +73,10 @@ public class MarvelApiConexionService {
             return restTemplate.exchange(uri, HttpMethod.GET, null, new ParameterizedTypeReference<PaginatedResponse<Character>>() {
             }).getBody();
         }catch (HttpClientErrorException ex){
-            throw new DoesntExistException(ex);
+            if (ex.getStatusCode().equals(HttpStatusCode.valueOf(404))){
+                throw new DoesntExistException(ex);
+            }
+            throw ex;
         }
     }
 

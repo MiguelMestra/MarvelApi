@@ -12,6 +12,6 @@ import java.util.List;
 public interface IMarvelservice {
     ResponseEntity<List<Character>> getAllCharacters(String name, List<Integer> series, List<Integer> stories) throws URISyntaxException, DoesntExistException;
     ResponseEntity<List<Comic>> getAllComics(List<Integer> characters) throws URISyntaxException, DoesntExistException;
-    ResponseEntity<Comic> getComicById(int id) throws URISyntaxException, DoesntExistException;
+    ResponseEntity<Comic> getComicById(int id) throws Exception;
     ResponseEntity<CharacterBasicInformationResponseDto>  getCharacterById(int id) throws Exception;
 }

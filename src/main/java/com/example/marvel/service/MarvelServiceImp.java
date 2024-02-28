@@ -65,7 +65,7 @@ public class MarvelServiceImp implements IMarvelservice {
         return new ResponseEntity<>(responseComics.getData().getResults(), HttpStatus.OK);
     }
 
-    public ResponseEntity<Comic> getComicById(int id) throws URISyntaxException, DoesntExistException {
+    public ResponseEntity<Comic> getComicById(int id) throws Exception {
 
         PaginatedResponse<Comic> responseComic = marvelApiConexionService.getComicById(id);
         List<Comic> response = responseComic.getData().getResults();

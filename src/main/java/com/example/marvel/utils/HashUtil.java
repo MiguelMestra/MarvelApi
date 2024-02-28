@@ -2,8 +2,7 @@ package com.example.marvel.utils;
 
 public class HashUtil {
 
-    //TODO revisar y mejorar
-    public static String getHash(String text, String hashType) {
+    private static String getHash(String text, String hashType) {
         try {
             java.security.MessageDigest md = java.security.MessageDigest
                     .getInstance(hashType);
